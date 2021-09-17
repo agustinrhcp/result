@@ -1,3 +1,3 @@
 if (! defined? Result)
-  require File.join(File.dirname(__FILE__), 'readline')
+  require File.join(File.dirname(__FILE__), 'result')
 end
