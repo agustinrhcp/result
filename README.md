@@ -31,7 +31,7 @@ In order to transform the result you may use:
 `map` which yields the Ok value to a block. If the result is an Error, any additional steps are bypassed (the block is not executed) and the error is propogated to the end and returned.
 
 ```ruby
-Result.ok(1).map { |n| n * 2 } # => Ok 1
+Result.ok(1).map { |n| n * 2 } # => Ok 2
 Result.error('Bar').map { |n| n * 2 } # => Error 'Bar'
 ```
 
