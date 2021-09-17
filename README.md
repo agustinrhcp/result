@@ -3,9 +3,9 @@ Result
 
 # Description
 
-Result provides a way to handle computations that may fail. Much as it's
-inspiration, the [Elm Result Type](https://package.elm-lang.org/packages/elm/core/latest/Result), allows doing further computations on top
-and forces error handling.
+Result provides a way to handle the success or failure of a series of steps, inspired by the [Elm Result Type](https://package.elm-lang.org/packages/elm/core/latest/Result) and [this talk on Railway Oriented Programming](https://vimeo.com/97344498). The goal is to make it easy to chain a series of operations and require explicit handling of the success and failure cases.
+
+While several similar gems exist (like `dry-monad`), we were unable to find one that fit our needs. This is currently battle-tested and being used in production by [Hint Health](https://www.hint.com).
 
 ## Installation
 
@@ -28,15 +28,14 @@ Result.error('Bar').ok? # => false
 
 In order to transform the result you may use:
 
-`map` which yields the Ok value to a block. If the result is an Error,
-it propagates it through.
+`map` which yields the Ok value to a block. If the result is an Error, any additional steps are bypassed (the block is not executed) and the error is propogated to the end and returned.
 
 ```ruby
 Result.ok(1).map { |n| n * 2 } # => Ok 1
 Result.error('Bar').map { |n| n * 2 } # => Error 'Bar'
 ```
 
-Similarly, you can map an Error value with `map_error`
+Similarly, you can map an Error value with `map_error`. This allows for handling and transformation.
 
 ```ruby
 Result.error('Bar').map_error { |error| { foo: error } } # => Error { foo: 'Bar' }
@@ -124,3 +123,28 @@ def create
     .when_error { |error| render json: { message: error }, status: 422 }
 end
 ```
+
+
+## Development
+
+Local setup:
+
+1. `git clone git@github.com:[USERNAME]/result.git`
+2. `gem install bundler:2.2.26`
+3. `bundle install`
+4. `rspec spec`
+
+To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/result.  All pull requests should have passing tests and include added/updated tests for any changes to code. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## See also
+
+You might also be interested in [Dry Monad](https://dry-rb.org/gems/dry-monads/1.3/), [resonad](https://github.com/tomdalling/resonad) or [railway_operation](https://github.com/felixflores/railway_operation), among others.
+
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
