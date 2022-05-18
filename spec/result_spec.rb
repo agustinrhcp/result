@@ -185,4 +185,27 @@ describe Result do
       it { is_expected.to be_an_error_result(2) }
     end
   end
+
+  describe '.with' do
+    subject do
+      Result
+        .with { Result.ok(1) }
+        .and { Result.ok(2) }
+        .then { |one, two| Result.ok(one + two) }
+    end
+
+    it { is_expected.to be_an_ok_result(3) }
+
+    context 'with an error' do
+      subject do
+        Result
+          .with { Result.ok(1) }
+          .and { Result.error(2) }
+          .and { Result.ok(3) }
+          .map { |one, two, three| one + two + three }
+      end
+
+      it { is_expected.to be_an_error_result(2) }
+    end
+  end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rb-result (0.0.0)
+    rb-result (0.0.2)
 
 GEM
   remote: https://rubygems.org/

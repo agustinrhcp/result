@@ -74,6 +74,10 @@ class Result
     end
   end
 
+  def self.with(&block)
+    Result::With.new(block: block)
+  end
+
   private
 
   def _result
@@ -82,6 +86,7 @@ class Result
 end
 
 require 'result/case'
+require 'result/with'
 require 'result/err'
 require 'result/errors'
 require 'result/ok'
