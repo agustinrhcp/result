@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rb-result'
-  s.version     = '0.0.1'
+  s.version     = '0.0.3'
   s.summary     = "Hola!"
   s.description = "Provides a wrapper for computations that may fail"
   s.authors     = ["Agustin Cornu"]
